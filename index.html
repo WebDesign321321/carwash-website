@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A1420">
+<meta name="description" content="WAVE Detailing — премиальный автодетейлинг-центр: ручная мойка, химчистка салона, керамическое покрытие и полировка кузова. Запись на услугу онлайн или по телефону.">
+<title>WAVE Detailing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+  :root{
+    --ink-950:#0A1420;
+    --ink-900:#0F1E2E;
+    --ink-800:#16293D;
+    --cyan-500:#3ED9E8;
+    --cyan-700:#1AA6B8;
+    --chrome-200:#E7F1F5;
+    --steel-500:#7C93A3;
+    --wrap:1180px;
+    --radius-s:10px;
+    --radius-m:18px;
+    --radius-l:28px;
+    --font-display:'Onest', system-ui, sans-serif;
+    --font-body:'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+    --shadow-glow:0 20px 60px -24px rgba(62,217,232,.45);
+    --ease:cubic-bezier(.22,.8,.32,1);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink-950);
+    color:var(--chrome-200);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.55;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%;}
+  a{color:inherit;}
+  ul{margin:0;padding:0;list-style:none;}
+  h1,h2,h3{font-family:var(--font-display);margin:0;color:var(--chrome-200);}
+  p{margin:0;}
+  button{font-family:inherit;}
+
+  .wrap{
+    max-width:var(--wrap);
+    margin-inline:auto;
+    padding-inline:clamp(16px,4vw,40px);
+  }
+
+  section{padding-block:clamp(64px,10vw,120px);}
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--cyan-500);
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:linear-gradient(90deg,var(--cyan-500),transparent);
+  }
+
+  h2.sectionTitle{
+    font-size:clamp(1.8rem,3.2vw,2.6rem);
+    font-weight:800;
+    letter-spacing:-.02em;
+    text-wrap:balance;
+    max-width:20ch;
+  }
+  .sectionSub{
+    color:var(--steel-500);
+    max-width:52ch;
+    font-size:1.02rem;
+    margin-top:14px;
+  }
+  .sectionHead{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:clamp(32px,5vw,56px);
+  }
+
+  /* ---------- buttons + ripple ---------- */
+  .btn{
+    position:relative;
+    overflow:hidden;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.55em;
+    min-height:48px;
+    padding:0 26px;
+    border-radius:999px;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:.96rem;
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .btn:active{transform:translateY(1px) scale(.99);}
+  .btn--primary{
+    background:linear-gradient(120deg,var(--cyan-500),var(--cyan-700));
+    color:var(--ink-950);
+    box-shadow:var(--shadow-glow);
+  }
+  .btn--primary:hover{filter:brightness(1.08);box-shadow:0 24px 70px -20px rgba(62,217,232,.65);}
+  .btn--ghost{
+    background:rgba(231,241,245,.03);
+    border-color:var(--ink-800);
+    color:var(--chrome-200);
+  }
+  .btn--ghost:hover{border-color:var(--cyan-700);background:rgba(62,217,232,.06);}
+  .btn--sm{min-height:40px;padding:0 18px;font-size:.85rem;}
+  .btn__ripple{
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,.55) 0%,rgba(62,217,232,.25) 45%,transparent 72%);
+    transform:translate(-50%,-50%) scale(0);
+    pointer-events:none;
+    animation:rippleOut .68s var(--ease) forwards;
+  }
+  @keyframes rippleOut{
+    to{transform:translate(-50%,-50%) scale(1);opacity:0;}
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed;
+    inset:0 0 auto 0;
+    z-index:100;
+    background:rgba(10,20,32,.72);
+    backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid var(--ink-800);
+  }
+  .nav__row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:1.15rem;
+    letter-spacing:-.01em;
+    text-decoration:none;
+  }
+  .logo__mark{width:34px;height:34px;flex:none;}
+  .logo__sub{
+    display:block;
+    font-family:var(--font-mono);
+    font-weight:500;
+    font-size:.6rem;
+    letter-spacing:.16em;
+    color:var(--steel-500);
+    text-transform:uppercase;
+    margin-top:1px;
+  }
+  .nav__links{
+    display:flex;
+    align-items:center;
+    gap:34px;
+  }
+  .nav__links a{
+    text-decoration:none;
+    color:var(--steel-500);
+    font-size:.94rem;
+    font-weight:500;
+    transition:color .2s;
+  }
+  .nav__links a:hover{color:var(--chrome-200);}
+  .nav__cta{display:flex;align-items:center;gap:14px;}
+  .nav__phone{
+    display:flex;
+    flex-direction:column;
+    text-align:right;
+    text-decoration:none;
+    line-height:1.2;
+  }
+  .nav__phone b{font-family:var(--font-mono);font-size:.92rem;color:var(--chrome-200);}
+  .nav__phone span{font-size:.68rem;color:var(--steel-500);}
+
+  .hamburger{
+    display:none;
+    position:relative;
+    width:44px;height:44px;
+    border:1px solid var(--ink-800);
+    border-radius:12px;
+    background:rgba(231,241,245,.03);
+    cursor:pointer;
+  }
+  .hamburger span{
+    position:absolute;left:12px;right:12px;height:2px;
+    background:var(--chrome-200);border-radius:2px;
+    transition:transform .3s var(--ease),opacity .3s var(--ease),top .3s var(--ease);
+  }
+  .hamburger span:nth-child(1){top:16px;}
+  .hamburger span:nth-child(2){top:21px;}
+  .hamburger span:nth-child(3){top:26px;}
+  .hamburger[aria-expanded="true"] span:nth-child(1){top:21px;transform:rotate(45deg);}
+  .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .hamburger[aria-expanded="true"] span:nth-child(3){top:21px;transform:rotate(-45deg);}
+
+  .mobilePanel{
+    position:fixed;
+    inset:76px 0 0 0;
+    z-index:90;
+    background:var(--ink-950);
+    display:flex;
+    flex-direction:column;
+    padding:32px clamp(16px,6vw,40px);
+    gap:6px;
+    transform:translateY(-8px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .28s var(--ease),transform .28s var(--ease);
+  }
+  .mobilePanel.is-open{opacity:1;transform:translateY(0);pointer-events:auto;}
+  .mobilePanel a{
+    text-decoration:none;
+    color:var(--chrome-200);
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.6rem;
+    padding-block:14px;
+    border-bottom:1px solid var(--ink-800);
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .4s var(--ease),transform .4s var(--ease);
+  }
+  .mobilePanel.is-open a{opacity:1;transform:translateY(0);}
+  .mobilePanel.is-open a:nth-child(1){transition-delay:.05s;}
+  .mobilePanel.is-open a:nth-child(2){transition-delay:.1s;}
+  .mobilePanel.is-open a:nth-child(3){transition-delay:.15s;}
+  .mobilePanel.is-open a:nth-child(4){transition-delay:.2s;}
+  .mobilePanel .btn{margin-top:20px;align-self:flex-start;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding-top:calc(76px + clamp(56px,9vw,110px));
+    position:relative;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:0;left:50%;
+    width:1200px;height:700px;
+    transform:translateX(-50%);
+    background:radial-gradient(ellipse at top, rgba(62,217,232,.14), transparent 65%);
+    pointer-events:none;
+  }
+  .hero__grid{
+    position:relative;
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:clamp(32px,5vw,64px);
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.3rem,4.6vw,3.6rem);
+    font-weight:800;
+    line-height:1.08;
+    letter-spacing:-.02em;
+    text-wrap:balance;
+    margin-top:18px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(120deg,var(--cyan-500),var(--cyan-700));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.lead{
+    max-width:46ch;
+    color:var(--steel-500);
+    font-size:1.08rem;
+    margin-top:20px;
+  }
+  .hero__ctas{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:32px;
+  }
+  .rating{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:36px;
+    font-family:var(--font-mono);
+    font-size:.9rem;
+    color:var(--steel-500);
+  }
+  .rating__stars{color:var(--cyan-500);letter-spacing:2px;}
+  .rating b{color:var(--chrome-200);font-weight:600;}
+
+  .heroVisual{
+    position:relative;
+    aspect-ratio:4/5;
+    border-radius:var(--radius-l);
+    background:linear-gradient(160deg,var(--ink-900),var(--ink-950));
+    border:1px solid var(--ink-800);
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .heroVisual svg{width:82%;height:auto;position:relative;z-index:2;}
+  .heroVisual__sweep{
+    position:absolute;
+    inset:-40% -60%;
+    background:linear-gradient(75deg,transparent 40%,rgba(231,241,245,.16) 48%,rgba(62,217,232,.35) 52%,transparent 62%);
+    transform:translateX(-60%);
+    animation:sweep 5.5s ease-in-out infinite;
+    z-index:1;
+  }
+  @keyframes sweep{
+    0%,10%{transform:translateX(-70%);}
+    45%,55%{transform:translateX(30%);}
+    100%{transform:translateX(30%);}
+  }
+  .heroVisual__ring{
+    position:absolute;
+    width:120%;height:120%;
+    border-radius:50%;
+    border:1px dashed rgba(124,147,163,.25);
+  }
+  .heroVisual__tag{
+    position:absolute;
+    bottom:20px;left:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(10,20,32,.7);
+    border:1px solid var(--ink-800);
+    padding:8px 14px;
+    border-radius:999px;
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    color:var(--steel-500);
+    z-index:3;
+  }
+  .heroVisual__tag i{width:7px;height:7px;border-radius:50%;background:var(--cyan-500);box-shadow:0 0 10px var(--cyan-500);}
+
+  /* ---------- services ---------- */
+  .services__grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--ink-800);
+    border:1px solid var(--ink-800);
+    border-radius:var(--radius-l);
+    overflow:hidden;
+  }
+  .serviceCard{
+    background:var(--ink-900);
+    padding:clamp(24px,3vw,34px);
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    transition:background .25s;
+  }
+  .serviceCard:hover{background:#122234;}
+  .serviceCard--wide{grid-column:span 2;}
+  .serviceCard__icon{
+    width:48px;height:48px;
+    color:var(--cyan-500);
+  }
+  .serviceCard h3{font-size:1.15rem;font-weight:700;}
+  .serviceCard p{color:var(--steel-500);font-size:.94rem;max-width:38ch;}
+  .serviceCard__price{
+    margin-top:auto;
+    padding-top:14px;
+    font-family:var(--font-mono);
+    font-size:.82rem;
+    color:var(--cyan-500);
+    border-top:1px solid var(--ink-800);
+  }
+
+  /* ---------- why us ---------- */
+  .why__grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--ink-800);
+    border:1px solid var(--ink-800);
+    border-radius:var(--radius-l);
+    overflow:hidden;
+  }
+  .whyCard{
+    background:var(--ink-900);
+    padding:clamp(22px,3vw,30px) clamp(20px,2.6vw,26px);
+  }
+  .whyCard__num{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--steel-500);
+  }
+  .whyCard b{
+    display:block;
+    font-family:var(--font-display);
+    font-size:1.5rem;
+    font-weight:800;
+    color:var(--cyan-500);
+    margin:10px 0 8px;
+  }
+  .whyCard p{color:var(--steel-500);font-size:.9rem;}
+
+  /* ---------- before/after ---------- */
+  .baSection .sectionHead{align-items:flex-start;}
+  .baWrap{
+    display:grid;
+    gap:24px;
+  }
+  .baSlider{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/8.5;
+    border-radius:var(--radius-l);
+    overflow:hidden;
+    border:1px solid var(--ink-800);
+    cursor:ew-resize;
+    touch-action:pan-y;
+    background:var(--ink-900);
+    user-select:none;
+  }
+  .baPanel{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .baPanel svg{width:60%;height:auto;}
+  .baPanel--before{
+    background:linear-gradient(160deg,#1b2734,#0d161f);
+  }
+  .baPanel--before .baCarFill{fill:url(#dirtyGrad);}
+  .baPanel--before .baGrime{opacity:.5;}
+  .baPanel--after{
+    background:linear-gradient(160deg,#0e3440,#0a1420);
+  }
+  .baPanel--after .baCarFill{fill:url(#cleanGrad);}
+  .baPanel--after .baSweepMask{opacity:.9;}
+  .baLabel{
+    position:absolute;
+    top:16px;
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:6px 12px;
+    border-radius:999px;
+    border:1px solid var(--ink-800);
+    background:rgba(10,20,32,.65);
+  }
+  .baPanel--before .baLabel{left:16px;color:var(--steel-500);}
+  .baPanel--after .baLabel{right:16px;color:var(--cyan-500);}
+  .baHandle{
+    position:absolute;
+    top:0;bottom:0;
+    width:0;
+    transform:translateX(-50%);
+    z-index:5;
+  }
+  .baHandle::before{
+    content:"";
+    position:absolute;
+    top:0;bottom:0;left:50%;
+    width:2px;
+    background:var(--chrome-200);
+    transform:translateX(-50%);
+    box-shadow:0 0 16px rgba(62,217,232,.6);
+  }
+  .baHandle__grip{
+    position:absolute;
+    top:50%;left:50%;
+    width:44px;height:44px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:var(--chrome-200);
+    display:flex;align-items:center;justify-content:center;
+    gap:4px;
+    box-shadow:0 8px 24px rgba(0,0,0,.45);
+  }
+  .baHandle__grip span{width:2px;height:14px;background:var(--ink-950);border-radius:1px;}
+  .baHint{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--font-mono);
+    font-size:.76rem;
+    color:var(--steel-500);
+  }
+
+  /* ---------- booking ---------- */
+  .bookingSection{
+    position:relative;
+  }
+  .bookingCard{
+    background:linear-gradient(160deg,var(--ink-900),#0c1826);
+    border:1px solid var(--ink-800);
+    border-radius:var(--radius-l);
+    padding:clamp(24px,4vw,48px);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:clamp(28px,4vw,48px);
+    align-items:start;
+  }
+  .bookingIntro h3{font-size:1.4rem;font-weight:700;margin-bottom:12px;}
+  .bookingIntro p{color:var(--steel-500);max-width:40ch;}
+  .bookingIntro__phone{
+    display:inline-flex;
+    flex-direction:column;
+    margin-top:26px;
+    padding:16px 20px;
+    border-radius:var(--radius-m);
+    border:1px solid var(--ink-800);
+    background:rgba(62,217,232,.05);
+  }
+  .bookingIntro__phone span{font-size:.72rem;color:var(--steel-500);text-transform:uppercase;letter-spacing:.1em;}
+  .bookingIntro__phone a{font-family:var(--font-mono);font-size:1.15rem;color:var(--cyan-500);text-decoration:none;margin-top:4px;}
+
+  .bookingField{margin-bottom:20px;}
+  .bookingField label{
+    display:block;
+    font-family:var(--font-mono);
+    font-size:.74rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--steel-500);
+    margin-bottom:10px;
+  }
+  .bookingSelect{
+    width:100%;
+    min-height:48px;
+    background:var(--ink-950);
+    border:1px solid var(--ink-800);
+    color:var(--chrome-200);
+    border-radius:var(--radius-s);
+    padding:0 16px;
+    font-family:var(--font-body);
+    font-size:.94rem;
+    appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--cyan-500) 50%),linear-gradient(135deg,var(--cyan-500) 50%,transparent 50%);
+    background-position:calc(100% - 22px) center, calc(100% - 16px) center;
+    background-size:6px 6px,6px 6px;
+    background-repeat:no-repeat;
+  }
+  .dateChips,.timeGrid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .dateChip,.timeChip{
+    min-height:44px;
+    padding:0 14px;
+    border-radius:var(--radius-s);
+    border:1px solid var(--ink-800);
+    background:var(--ink-950);
+    color:var(--chrome-200);
+    font-family:var(--font-mono);
+    font-size:.82rem;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    line-height:1.3;
+    transition:border-color .2s,background .2s,color .2s;
+  }
+  .dateChip span{font-size:.66rem;color:var(--steel-500);text-transform:uppercase;}
+  .dateChip{min-width:56px;}
+  .timeChip{min-width:74px;}
+  .dateChip:hover,.timeChip:hover{border-color:var(--cyan-700);}
+  .dateChip.is-active,.timeChip.is-active{
+    background:linear-gradient(120deg,var(--cyan-500),var(--cyan-700));
+    color:var(--ink-950);
+    border-color:transparent;
+  }
+  .dateChip.is-active span{color:rgba(10,20,32,.65);}
+  .bookingConfirm{width:100%;margin-top:8px;}
+  .bookingNote{
+    margin-top:16px;
+    padding:14px 16px;
+    border-radius:var(--radius-s);
+    background:rgba(62,217,232,.08);
+    border:1px solid rgba(62,217,232,.25);
+    font-size:.88rem;
+    color:var(--chrome-200);
+  }
+  .bookingNote a{color:var(--cyan-500);font-family:var(--font-mono);text-decoration:none;}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--ink-800);
+    padding-block:48px;
+  }
+  .footer__row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .footer__brand{display:flex;align-items:center;gap:10px;}
+  .footer__brand svg{width:28px;height:28px;}
+  .footer__meta{
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+    font-size:.88rem;
+    color:var(--steel-500);
+  }
+  .footer__meta b{display:block;color:var(--chrome-200);font-family:var(--font-mono);font-size:.9rem;margin-bottom:2px;}
+  .footer__bottom{
+    margin-top:32px;
+    padding-top:24px;
+    border-top:1px solid var(--ink-800);
+    font-size:.78rem;
+    color:var(--steel-500);
+  }
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);}
+  .reveal.is-visible{
+    opacity:1;transform:translateY(0);
+    transition:opacity .7s var(--ease),transform .7s var(--ease);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .heroVisual__sweep{animation:none;display:none;}
+    .btn__ripple{animation:none;display:none;}
+    .reveal{opacity:1;transform:none;}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero__grid{grid-template-columns:1fr;}
+    .heroVisual{aspect-ratio:16/9;max-width:520px;}
+    .services__grid{grid-template-columns:repeat(2,1fr);}
+    .serviceCard--wide{grid-column:span 2;}
+    .why__grid{grid-template-columns:repeat(2,1fr);}
+    .bookingCard{grid-template-columns:1fr;}
+  }
+  @media (max-width:760px){
+    .nav__links{display:none;}
+    .nav__phone{display:none;}
+    .hamburger{display:block;}
+  }
+  @media (max-width:600px){
+    .services__grid{grid-template-columns:1fr;}
+    .serviceCard--wide{grid-column:span 1;}
+    .why__grid{grid-template-columns:1fr;}
+    .footer__row{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="carSil" viewBox="0 0 380 170">
+      <path class="baCarFill" d="M22,140 C22,118 44,100 76,94 L104,58 C114,47 132,42 152,42 L228,42 C250,42 266,53 277,70 L302,96 C334,99 356,118 356,140 L356,150 L22,150 Z"/>
+      <circle class="baCarFill" cx="98" cy="150" r="24"/>
+      <circle class="baCarFill" cx="284" cy="150" r="24"/>
+      <path d="M110,58 L134,58 L124,94 L92,94 Z" fill="rgba(10,20,32,.35)"/>
+      <path d="M144,58 L224,58 L232,94 L136,94 Z" fill="rgba(10,20,32,.35)"/>
+    </symbol>
+    <linearGradient id="dirtyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5b6c78"/>
+      <stop offset="1" stop-color="#2b3945"/>
+    </linearGradient>
+    <linearGradient id="cleanGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8FF0F7"/>
+      <stop offset=".5" stop-color="#3ED9E8"/>
+      <stop offset="1" stop-color="#1AA6B8"/>
+    </linearGradient>
+    <filter id="grimeTex" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0"/>
+    </filter>
+  </defs>
+</svg>
+
+<nav class="nav">
+  <div class="wrap nav__row">
+    <a href="#top" class="logo">
+      <svg class="logo__mark" viewBox="0 0 48 48" fill="none">
+        <path d="M4 30c5 0 5-8 10-8s5 8 10 8 5-8 10-8 5 8 10 8 5-8 10-8" stroke="#3ED9E8" stroke-width="3" stroke-linecap="round"/>
+        <path d="M4 20c5 0 5-8 10-8s5 8 10 8 5-8 10-8 5 8 10 8 5-8 10-8" stroke="#1AA6B8" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+      </svg>
+      <span>WAVE<span class="logo__sub">Detailing studio</span></span>
+    </a>
+    <div class="nav__links">
+      <a href="#services">Услуги</a>
+      <a href="#before-after">До / После</a>
+      <a href="#why">Почему мы</a>
+      <a href="#booking">Запись</a>
+    </div>
+    <div class="nav__cta">
+      <a class="nav__phone" href="tel:+77000000000">
+        <b>+7 (700) 000-00-00</b>
+        <span>Ежедневно 09:00–21:00</span>
+      </a>
+      <a href="#booking" class="btn btn--primary btn--sm">Записаться</a>
+      <button class="hamburger" id="hamburger" aria-label="Меню" aria-expanded="false" aria-controls="mobilePanel">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobilePanel" id="mobilePanel">
+  <a href="#services">Услуги</a>
+  <a href="#before-after">До / После</a>
+  <a href="#why">Почему мы</a>
+  <a href="#booking">Запись</a>
+  <a href="tel:+77000000000" class="btn btn--primary">+7 (700) 000-00-00</a>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="eyebrow">Студия детейлинга WAVE</span>
+        <h1>Чистота, которую видно.<br><em>Блеск, который чувствуется.</em></h1>
+        <p class="lead">Ручная мойка, керамика и химчистка салона — с вниманием к каждой детали кузова. Работаем строго по записи: без очередей, без спешки, с гарантией результата.</p>
+        <div class="hero__ctas">
+          <a href="#booking" class="btn btn--primary">Запись на услугу</a>
+          <a href="#services" class="btn btn--ghost">Смотреть услуги</a>
+        </div>
+        <div class="rating">
+          <span class="rating__stars">★★★★★</span>
+          <span><b>4.9</b> · 120+ довольных клиентов</span>
+        </div>
+      </div>
+      <div class="heroVisual reveal">
+        <div class="heroVisual__ring"></div>
+        <div class="heroVisual__sweep"></div>
+        <svg viewBox="0 0 380 170" aria-hidden="true">
+          <use href="#carSil" fill="url(#cleanGrad)"/>
+        </svg>
+        <span class="heroVisual__tag"><i></i> Керамическое покрытие активно</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <span class="eyebrow">Услуги</span>
+        <h2 class="sectionTitle">Полный цикл ухода за автомобилем</h2>
+        <p class="sectionSub">От экспресс-мойки до керамики — каждая услуга выполняется вручную, на профессиональных составах, в крытом боксе.</p>
+      </div>
+      <div class="services__grid reveal">
+        <article class="serviceCard serviceCard--wide">
+          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6C24 6 12 22 12 30a12 12 0 0 0 24 0C36 22 24 6 24 6Z"/></svg>
+          <h3>Мойка кузова</h3>
+          <p>Бесконтактная и ручная мойка с pH-нейтральной химией — без царапин и разводов, с сушкой мягкими полотенцами.</p>
+          <span class="serviceCard__price">от 1 200 ₽ · 40 мин</span>
+        </article>
+        <article class="serviceCard">
+          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="10" width="28" height="20" rx="3"/><path d="M14 30v6M24 30v8M34 30v6"/></svg>
+          <h3>Химчистка салона</h3>
+          <p>Глубокая чистка сидений, потолка и ковролина с удалением запахов и пятен.</p>
+          <span class="serviceCard__price">от 6 500 ₽ · 3 ч</span>
+        </article>
+        <article class="serviceCard">
+          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 5 41 14v13c0 10-8 15-17 16C15 42 7 37 7 27V14Z"/><path d="M17 24l5 5 10-11"/></svg>
+          <h3>Керамическое покрытие</h3>
+          <p>Защитный слой на 12+ месяцев: глубокий блеск, гидрофобный эффект, устойчивость к реагентам.</p>
+          <span class="serviceCard__price">от 18 000 ₽ · 1 день</span>
+        </article>
+        <article class="serviceCard">
+          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 8a16 16 0 1 1-11.3 4.7"/><path d="M24 8v10l8-4"/></svg>
+          <h3>Полировка кузова</h3>
+          <p>Удаление мелких царапин и матовости лака, восстановление глубины цвета кузова.</p>
+          <span class="serviceCard__price">от 9 000 ₽ · 4 ч</span>
+        </article>
+        <article class="serviceCard">
+          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 34 40 14"/><circle cx="30" cy="20" r="3" fill="currentColor" stroke="none"/><circle cx="18" cy="30" r="2" fill="currentColor" stroke="none" opacity=".6"/></svg>
+          <h3>Антидождь на стёкла</h3>
+          <p>Гидрофобное покрытие стёкол — капли скатываются на скорости, обзор чище в дождь.</p>
+          <span class="serviceCard__price">от 1 800 ₽ · 30 мин</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="before-after" class="baSection">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <span class="eyebrow">До / После</span>
+        <h2 class="sectionTitle">Перетащите разделитель</h2>
+        <p class="sectionSub">Наглядно — результат детейлинга за одно посещение. Потяните за ручку или используйте стрелки клавиатуры.</p>
+      </div>
+      <div class="baWrap reveal">
+        <div class="baSlider" id="baSlider" role="slider" tabindex="0" aria-label="Сравнение состояния кузова до и после детейлинга" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55">
+          <div class="baPanel baPanel--before">
+            <svg viewBox="0 0 380 170" aria-hidden="true"><use href="#carSil"/><use href="#carSil" filter="url(#grimeTex)" class="baGrime"/></svg>
+            <span class="baLabel">До</span>
+          </div>
+          <div class="baPanel baPanel--after" id="baAfter" style="clip-path:inset(0 45% 0 0)">
+            <svg viewBox="0 0 380 170" aria-hidden="true"><use href="#carSil"/></svg>
+            <span class="baLabel">После</span>
+          </div>
+          <div class="baHandle" id="baHandle" style="left:55%">
+            <span class="baHandle__grip"><span></span><span></span></span>
+          </div>
+        </div>
+        <div class="baHint">
+          <span>Грязный кузов, матовое ЛКП</span>
+          <span>Керамика + полировка</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <span class="eyebrow">Почему WAVE</span>
+        <h2 class="sectionTitle">Детейлинг, а не просто мойка</h2>
+      </div>
+      <div class="why__grid reveal">
+        <div class="whyCard">
+          <span class="whyCard__num">01</span>
+          <b>12 мес</b>
+          <p>Гарантия на керамическое покрытие при соблюдении рекомендаций по уходу.</p>
+        </div>
+        <div class="whyCard">
+          <span class="whyCard__num">02</span>
+          <b>Крытый бокс</b>
+          <p>Работаем в закрытом помещении с климат-контролем — независимо от погоды.</p>
+        </div>
+        <div class="whyCard">
+          <span class="whyCard__num">03</span>
+          <b>40 минут</b>
+          <p>Минимальное время ожидания для экспресс-мойки без потери качества.</p>
+        </div>
+        <div class="whyCard">
+          <span class="whyCard__num">04</span>
+          <b>Своя химия</b>
+          <p>Сертифицированные профессиональные составы, бережные к лакокрасочному покрытию.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="bookingSection">
+    <div class="wrap">
+      <div class="bookingCard reveal">
+        <div class="bookingIntro">
+          <span class="eyebrow">Запись</span>
+          <h3>Забронируйте время онлайн</h3>
+          <p>Выберите услугу, удобную дату и время — мы свяжемся для подтверждения записи в течение 15 минут.</p>
+          <div class="bookingIntro__phone">
+            <span>Или позвоните сами</span>
+            <a href="tel:+77000000000">+7 (700) 000-00-00</a>
+          </div>
+        </div>
+        <div class="bookingForm">
+          <div class="bookingField">
+            <label for="svcSelect">Услуга</label>
+            <select id="svcSelect" class="bookingSelect">
+              <option>Мойка кузова</option>
+              <option>Химчистка салона</option>
+              <option>Керамическое покрытие</option>
+              <option>Полировка кузова</option>
+              <option>Антидождь на стёкла</option>
+            </select>
+          </div>
+          <div class="bookingField">
+            <label>Дата</label>
+            <div class="dateChips" id="dateChips"></div>
+          </div>
+          <div class="bookingField">
+            <label>Время</label>
+            <div class="timeGrid" id="timeGrid">
+              <button type="button" class="timeChip">09:00</button>
+              <button type="button" class="timeChip">10:30</button>
+              <button type="button" class="timeChip">12:00</button>
+              <button type="button" class="timeChip">14:00</button>
+              <button type="button" class="timeChip">15:30</button>
+              <button type="button" class="timeChip">17:00</button>
+              <button type="button" class="timeChip">18:30</button>
+              <button type="button" class="timeChip">20:00</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn--primary bookingConfirm" id="bookingConfirm">Подтвердить запись</button>
+          <p class="bookingNote" id="bookingNote" hidden></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer__row">
+      <div class="footer__brand">
+        <svg viewBox="0 0 48 48" fill="none"><path d="M4 30c5 0 5-8 10-8s5 8 10 8 5-8 10-8 5 8 10 8 5-8 10-8" stroke="#3ED9E8" stroke-width="3" stroke-linecap="round"/></svg>
+        <strong style="font-family:var(--font-display);font-weight:800;">WAVE Detailing</strong>
+      </div>
+      <div class="footer__meta">
+        <div><b>+7 (700) 000-00-00</b>Звонки и запись</div>
+        <div><b>09:00–21:00</b>Ежедневно, без выходных</div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      Демонстрационный макет сайта · WAVE Detailing — учебный проект для портфолио веб-дизайнера
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- ripple ---- */
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.btn');
+    if(!btn) return;
+    if(reduceMotion) return;
+    var rect = btn.getBoundingClientRect();
+    var size = Math.max(rect.width, rect.height) * 1.8;
+    var span = document.createElement('span');
+    span.className = 'btn__ripple';
+    span.style.width = size + 'px';
+    span.style.height = size + 'px';
+    span.style.left = (e.clientX - rect.left) + 'px';
+    span.style.top = (e.clientY - rect.top) + 'px';
+    btn.appendChild(span);
+    span.addEventListener('animationend', function(){ span.remove(); });
+  });
+
+  /* ---- mobile nav ---- */
+  var hamburger = document.getElementById('hamburger');
+  var mobilePanel = document.getElementById('mobilePanel');
+  hamburger.addEventListener('click', function(){
+    var open = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!open));
+    mobilePanel.classList.toggle('is-open', !open);
+    document.body.style.overflow = !open ? 'hidden' : '';
+  });
+  mobilePanel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      hamburger.setAttribute('aria-expanded','false');
+      mobilePanel.classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ---- before/after slider ---- */
+  var slider = document.getElementById('baSlider');
+  var after = document.getElementById('baAfter');
+  var handle = document.getElementById('baHandle');
+  var dragging = false;
+
+  function setValue(val, animate){
+    val = Math.max(0, Math.min(100, val));
+    if(animate){
+      after.style.transition = 'clip-path .9s cubic-bezier(.22,.8,.32,1)';
+      handle.style.transition = 'left .9s cubic-bezier(.22,.8,.32,1)';
+    } else {
+      after.style.transition = '';
+      handle.style.transition = '';
+    }
+    after.style.clipPath = 'inset(0 ' + (100 - val) + '% 0 0)';
+    handle.style.left = val + '%';
+    slider.setAttribute('aria-valuenow', Math.round(val));
+  }
+
+  function valueFromX(clientX){
+    var rect = slider.getBoundingClientRect();
+    return ((clientX - rect.left) / rect.width) * 100;
+  }
+
+  slider.addEventListener('pointerdown', function(e){
+    dragging = true;
+    slider.setPointerCapture(e.pointerId);
+    setValue(valueFromX(e.clientX), false);
+  });
+  slider.addEventListener('pointermove', function(e){
+    if(!dragging) return;
+    setValue(valueFromX(e.clientX), false);
+  });
+  slider.addEventListener('pointerup', function(){ dragging = false; });
+  slider.addEventListener('pointercancel', function(){ dragging = false; });
+
+  slider.addEventListener('keydown', function(e){
+    var current = parseFloat(slider.getAttribute('aria-valuenow')) || 55;
+    if(e.key === 'ArrowLeft'){ setValue(current - 5, false); e.preventDefault(); }
+    if(e.key === 'ArrowRight'){ setValue(current + 5, false); e.preventDefault(); }
+    if(e.key === 'Home'){ setValue(0, false); e.preventDefault(); }
+    if(e.key === 'End'){ setValue(100, false); e.preventDefault(); }
+  });
+
+  if(!reduceMotion){
+    setTimeout(function(){ setValue(82, true); }, 900);
+    setTimeout(function(){ setValue(28, true); }, 2100);
+    setTimeout(function(){ setValue(55, true); }, 3300);
+  }
+
+  /* ---- booking widget (visual only) ---- */
+  var dateChips = document.getElementById('dateChips');
+  var days = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  var today = new Date();
+  for(var i=0;i<7;i++){
+    var d = new Date(today);
+    d.setDate(today.getDate() + i);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'dateChip' + (i===0 ? ' is-active' : '');
+    btn.innerHTML = (i===0 ? 'Сегодня' : d.getDate()) + '<span>' + days[d.getDay()] + '</span>';
+    dateChips.appendChild(btn);
+  }
+
+  function bindSingleSelect(container, selector){
+    container.addEventListener('click', function(e){
+      var chip = e.target.closest(selector);
+      if(!chip) return;
+      container.querySelectorAll(selector).forEach(function(c){ c.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+    });
+  }
+  bindSingleSelect(dateChips, '.dateChip');
+  bindSingleSelect(document.getElementById('timeGrid'), '.timeChip');
+
+  document.getElementById('bookingConfirm').addEventListener('click', function(){
+    var svc = document.getElementById('svcSelect').value;
+    var dateChip = dateChips.querySelector('.is-active');
+    var timeChip = document.getElementById('timeGrid').querySelector('.is-active');
+    var note = document.getElementById('bookingNote');
+    if(!timeChip){
+      note.textContent = 'Выберите удобное время, чтобы продолжить.';
+      note.hidden = false;
+      return;
+    }
+    var dateLabel = dateChip ? dateChip.textContent : 'ближайшую дату';
+    note.innerHTML = 'Отлично! Вы выбрали «' + svc + '» на ' + dateLabel + ', ' + timeChip.textContent + '. Позвоните нам для подтверждения: <a href="tel:+77000000000">+7 (700) 000-00-00</a>';
+    note.hidden = false;
+  });
+
+  /* ---- scroll reveal ---- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if(window.gsap && window.ScrollTrigger && !reduceMotion){
+    gsap.registerPlugin(ScrollTrigger);
+    revealEls.forEach(function(el){
+      gsap.fromTo(el, {opacity:0, y:28}, {
+        opacity:1, y:0, duration:.8, ease:'power2.out',
+        scrollTrigger:{ trigger: el, start: 'top 85%' }
+      });
+    });
+  } else if('IntersectionObserver' in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.15});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+})();
+</script>
+</body>
+</html>
