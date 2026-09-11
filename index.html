@@ -42,6 +42,7 @@
     line-height:1.55;
     overflow-x:hidden;
     -webkit-font-smoothing:antialiased;
+    padding-bottom:104px; /* clearance for the floating bottom tab bar */
   }
   img,svg{max-width:100%;}
   a{color:inherit;}
@@ -153,342 +154,127 @@
     to{transform:translate(-50%,-50%) scale(1);opacity:0;}
   }
 
-  /* ---------- nav ---------- */
-  .nav{
+  /* ---------- floating corner chips (brand + call) ---------- */
+  .brandChip,.callChip{
     position:fixed;
-    inset:0 0 auto 0;
-    z-index:100;
+    top:16px;
+    z-index:110;
+    display:flex;
+    align-items:center;
     background:rgba(10,20,32,.72);
     backdrop-filter:blur(14px) saturate(140%);
-    border-bottom:1px solid var(--ink-800);
-  }
-  .nav__row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    height:76px;
-  }
-  .logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--font-display);
-    font-weight:800;
-    font-size:1.15rem;
-    letter-spacing:-.01em;
-    text-decoration:none;
-  }
-  .logo__mark{width:34px;height:34px;flex:none;}
-  .logo__sub{
-    display:block;
-    font-family:var(--font-mono);
-    font-weight:500;
-    font-size:.6rem;
-    letter-spacing:.16em;
-    color:var(--steel-500);
-    text-transform:uppercase;
-    margin-top:1px;
-  }
-  .nav__links{
-    display:flex;
-    align-items:center;
-    gap:34px;
-  }
-  .nav__links a{
-    text-decoration:none;
-    color:var(--steel-500);
-    font-size:.94rem;
-    font-weight:500;
-    transition:color .2s;
-  }
-  .nav__links a:hover{color:var(--chrome-200);}
-  .nav__cta{display:flex;align-items:center;gap:14px;}
-  .nav__phone{
-    display:flex;
-    flex-direction:column;
-    text-align:right;
-    text-decoration:none;
-    line-height:1.2;
-  }
-  .nav__phone b{font-family:var(--font-mono);font-size:.92rem;color:var(--chrome-200);}
-  .nav__phone span{font-size:.68rem;color:var(--steel-500);}
-
-  .hamburger{
-    display:none;
-    position:relative;
-    width:44px;height:44px;
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
     border:1px solid var(--ink-800);
-    border-radius:12px;
-    background:rgba(231,241,245,.03);
-    cursor:pointer;
-  }
-  .hamburger span{
-    position:absolute;left:12px;right:12px;height:2px;
-    background:var(--chrome-200);border-radius:2px;
-    transition:transform .3s var(--ease),opacity .3s var(--ease),top .3s var(--ease);
-  }
-  .hamburger span:nth-child(1){top:16px;}
-  .hamburger span:nth-child(2){top:21px;}
-  .hamburger span:nth-child(3){top:26px;}
-  .hamburger[aria-expanded="true"] span:nth-child(1){top:21px;transform:rotate(45deg);}
-  .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0;}
-  .hamburger[aria-expanded="true"] span:nth-child(3){top:21px;transform:rotate(-45deg);}
-
-  .mobilePanel{
-    position:fixed;
-    inset:76px 0 0 0;
-    z-index:90;
-    background:var(--ink-950);
-    display:flex;
-    flex-direction:column;
-    padding:32px clamp(16px,6vw,40px);
-    gap:6px;
-    transform:translateY(-8px);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .28s var(--ease),transform .28s var(--ease);
-  }
-  .mobilePanel.is-open{opacity:1;transform:translateY(0);pointer-events:auto;}
-  .mobilePanel a{
     text-decoration:none;
     color:var(--chrome-200);
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:1.6rem;
-    padding-block:14px;
-    border-bottom:1px solid var(--ink-800);
-    opacity:0;
-    transform:translateY(10px);
-    transition:opacity .4s var(--ease),transform .4s var(--ease);
   }
-  .mobilePanel.is-open a{opacity:1;transform:translateY(0);}
-  .mobilePanel.is-open a:nth-child(1){transition-delay:.05s;}
-  .mobilePanel.is-open a:nth-child(2){transition-delay:.1s;}
-  .mobilePanel.is-open a:nth-child(3){transition-delay:.15s;}
-  .mobilePanel.is-open a:nth-child(4){transition-delay:.2s;}
-  .mobilePanel .btn{margin-top:20px;align-self:flex-start;}
-
-  /* ---------- hero ---------- */
-  .hero{
-    padding-top:calc(76px + clamp(56px,9vw,110px));
-    position:relative;
-  }
-  .hero::before{
-    content:"";
-    position:absolute;
-    top:0;left:50%;
-    width:1200px;height:700px;
-    transform:translateX(-50%);
-    background:radial-gradient(ellipse at top, rgba(62,217,232,.14), transparent 65%);
-    pointer-events:none;
-  }
-  .hero__grid{
-    position:relative;
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    gap:clamp(32px,5vw,64px);
-    align-items:center;
-  }
-  .hero h1{
-    font-size:clamp(2.8rem,7.5vw,5.5rem);
-    font-weight:800;
-    line-height:1.03;
-    letter-spacing:-.03em;
-    text-wrap:balance;
-    margin-top:18px;
-  }
-  .hero h1 em{
-    font-style:normal;
-    background:linear-gradient(120deg,var(--cyan-500),var(--cyan-700));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .hero p.lead{
-    max-width:46ch;
-    color:var(--steel-500);
-    font-size:1.08rem;
-    margin-top:20px;
-  }
-  .hero__ctas{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px;
-    margin-top:32px;
-  }
-  .heroStat{
-    display:flex;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:22px;
-    margin-top:40px;
-  }
-  .heroStat__num{
-    font-family:var(--font-mono);
-    font-weight:600;
-    font-size:clamp(3rem,8vw,6rem);
-    line-height:1;
-    letter-spacing:-.02em;
-    background:linear-gradient(160deg,var(--chrome-200),var(--cyan-500) 130%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .heroStat__meta{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    font-family:var(--font-mono);
-    font-size:.86rem;
-    color:var(--steel-500);
-  }
-  .heroStat__stars{color:var(--cyan-500);letter-spacing:3px;font-size:1rem;}
-
-  .heroVisual{
-    position:relative;
-    aspect-ratio:4/5;
-    border-radius:var(--radius-l);
-    background:linear-gradient(160deg,var(--ink-900),var(--ink-950));
-    border:1px solid var(--ink-800);
-    overflow:hidden;
-    display:flex;
-    align-items:center;
+  .brandChip{
+    left:16px;
+    width:48px;height:48px;
+    border-radius:50%;
     justify-content:center;
   }
-  .heroVisual svg{width:82%;height:auto;position:relative;z-index:2;}
-  .heroVisual__sweep{
-    position:absolute;
-    inset:-40% -60%;
-    background:linear-gradient(75deg,transparent 40%,rgba(231,241,245,.16) 48%,rgba(62,217,232,.35) 52%,transparent 62%);
-    transform:translateX(-60%);
-    animation:sweep 5.5s ease-in-out infinite;
-    z-index:1;
-  }
-  @keyframes sweep{
-    0%,10%{transform:translateX(-70%);}
-    45%,55%{transform:translateX(30%);}
-    100%{transform:translateX(30%);}
-  }
-  .heroVisual__ring{
-    position:absolute;
-    width:120%;height:120%;
-    border-radius:50%;
-    border:1px dashed rgba(124,147,163,.25);
-  }
-  .heroVisual__tag{
-    position:absolute;
-    bottom:20px;left:20px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:rgba(10,20,32,.7);
-    border:1px solid var(--ink-800);
-    padding:8px 14px;
+  .brandChip svg{width:26px;height:26px;}
+  .callChip{
+    right:16px;
+    gap:9px;
+    height:48px;
+    min-width:48px;
+    padding:0 18px 0 14px;
     border-radius:999px;
     font-family:var(--font-mono);
-    font-size:.72rem;
-    color:var(--steel-500);
-    z-index:3;
+    font-size:.85rem;
+    transition:border-color .3s var(--ease-soft),background .3s var(--ease-soft);
   }
-  .heroVisual__tag i{width:7px;height:7px;border-radius:50%;background:var(--cyan-500);box-shadow:0 0 10px var(--cyan-500);}
+  .callChip:hover{border-color:var(--cyan-700);}
+  .callChip svg{width:18px;height:18px;color:var(--cyan-500);flex:none;}
 
-  /* ---------- services ---------- */
-  .services__grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:1px;
-    background:var(--ink-800);
+  /* ---------- bottom tab-bar nav ---------- */
+  .tabbar{
+    position:fixed;
+    left:50%;
+    bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    transform:translateX(-50%);
+    z-index:110;
+    background:rgba(10,20,32,.75);
+    backdrop-filter:blur(18px) saturate(150%);
+    -webkit-backdrop-filter:blur(18px) saturate(150%);
     border:1px solid var(--ink-800);
-    border-radius:var(--radius-l);
-    overflow:hidden;
+    border-radius:999px;
+    padding:6px;
+    box-shadow:0 22px 55px -22px rgba(0,0,0,.65);
+    max-width:calc(100vw - 24px);
   }
-  .serviceCard{
-    background:var(--ink-900);
-    padding:clamp(24px,3vw,34px);
+  .tabbar__inner{
+    display:flex;
+    align-items:center;
+    gap:2px;
+  }
+  .tabbar__item{
     display:flex;
     flex-direction:column;
-    gap:16px;
-    transition:background .25s;
-  }
-  .serviceCard:hover{background:#122234;}
-  .serviceCard--wide{grid-column:span 2;}
-  .serviceCard__icon{
-    width:48px;height:48px;
-    color:var(--cyan-500);
-  }
-  .serviceCard h3{font-size:1.15rem;font-weight:700;}
-  .serviceCard p{color:var(--steel-500);font-size:.94rem;max-width:38ch;}
-  .serviceCard__price{
-    margin-top:auto;
-    padding-top:14px;
-    font-family:var(--font-mono);
-    font-size:.82rem;
-    color:var(--cyan-500);
-    border-top:1px solid var(--ink-800);
-  }
-
-  /* ---------- why us ---------- */
-  .why__grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:1px;
-    background:var(--ink-800);
-    border:1px solid var(--ink-800);
-    border-radius:var(--radius-l);
-    overflow:hidden;
-  }
-  .whyCard{
-    background:var(--ink-900);
-    padding:clamp(22px,3vw,30px) clamp(20px,2.6vw,26px);
-  }
-  .whyCard__num{
-    font-family:var(--font-mono);
-    font-size:.78rem;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    min-width:58px;
+    min-height:52px;
+    padding:6px 10px;
+    border-radius:999px;
+    text-decoration:none;
     color:var(--steel-500);
+    font-family:var(--font-mono);
+    font-size:.62rem;
+    letter-spacing:.01em;
+    text-align:center;
+    line-height:1.15;
+    transition:color .3s var(--ease-soft),background .3s var(--ease-soft);
   }
-  .whyCard b{
-    display:block;
-    font-family:var(--font-display);
-    font-size:1.5rem;
-    font-weight:800;
-    color:var(--cyan-500);
-    margin:10px 0 8px;
+  .tabbar__item svg{width:19px;height:19px;}
+  .tabbar__item:hover,.tabbar__item.is-active{
+    color:var(--chrome-200);
+    background:rgba(231,241,245,.06);
   }
-  .whyCard p{color:var(--steel-500);font-size:.9rem;}
+  .tabbar__item--cta{
+    background:linear-gradient(120deg,var(--cyan-500),var(--cyan-700));
+    color:var(--ink-950);
+    font-weight:600;
+  }
+  .tabbar__item--cta svg{color:var(--ink-950);}
+  .tabbar__item--cta:hover{
+    filter:brightness(1.08);
+    background:linear-gradient(120deg,var(--cyan-500),var(--cyan-700));
+    color:var(--ink-950);
+  }
 
-  /* ---------- before/after ---------- */
-  .baSection .sectionHead{align-items:flex-start;}
-  .baWrap{
-    display:grid;
-    gap:24px;
+  /* ---------- hero (before/after slider IS the hero visual) ---------- */
+  .hero{
+    position:relative;
+    padding-block:0;
   }
-  .baSlider{
+  .heroSlider{
     position:relative;
     width:100%;
-    aspect-ratio:16/8.5;
-    border-radius:var(--radius-l);
+    aspect-ratio:4/5;
+    min-height:420px;
     overflow:hidden;
-    border:1px solid var(--ink-800);
     cursor:ew-resize;
     touch-action:pan-y;
     background:var(--ink-900);
     user-select:none;
+  }
+  @media (min-width:760px){
+    .heroSlider{aspect-ratio:auto;height:min(82vh,740px);min-height:480px;}
   }
   .baPanel{
     position:absolute;inset:0;
     display:flex;align-items:center;justify-content:center;
   }
   .baPanel svg{width:60%;height:auto;}
-  .baPanel--before{
-    background:linear-gradient(160deg,#1b2734,#0d161f);
-  }
+  .baPanel--before{background:linear-gradient(160deg,#1b2734,#0d161f);}
   .baPanel--before .baCarFill{fill:url(#dirtyGrad);}
   .baPanel--before .baGrime{opacity:.5;}
-  .baPanel--after{
-    background:linear-gradient(160deg,#0e3440,#0a1420);
-  }
+  .baPanel--after{background:linear-gradient(160deg,#0e3440,#0a1420);}
   .baPanel--after .baCarFill{fill:url(#cleanGrad);}
-  .baPanel--after .baSweepMask{opacity:.9;}
   .baLabel{
     position:absolute;
     top:16px;
@@ -500,9 +286,20 @@
     border-radius:999px;
     border:1px solid var(--ink-800);
     background:rgba(10,20,32,.65);
+    z-index:2;
   }
   .baPanel--before .baLabel{left:16px;color:var(--steel-500);}
   .baPanel--after .baLabel{right:16px;color:var(--cyan-500);}
+  .heroSlider__scrimTop{
+    position:absolute;inset:0 0 auto 0;height:48%;
+    background:linear-gradient(180deg,rgba(10,20,32,.85),transparent);
+    pointer-events:none;z-index:2;
+  }
+  .heroSlider__scrimBottom{
+    position:absolute;inset:auto 0 0 0;height:58%;
+    background:linear-gradient(0deg,rgba(10,20,32,.92),transparent);
+    pointer-events:none;z-index:2;
+  }
   .baHandle{
     position:absolute;
     top:0;bottom:0;
@@ -531,23 +328,245 @@
     box-shadow:0 8px 24px rgba(0,0,0,.45);
   }
   .baHandle__grip span{width:2px;height:14px;background:var(--ink-950);border-radius:1px;}
-  .baHint{
+
+  .heroSlider__tag{
+    position:absolute;
+    bottom:16px;right:16px;
     display:flex;
-    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+    background:rgba(10,20,32,.7);
+    border:1px solid var(--ink-800);
+    padding:8px 14px;
+    border-radius:999px;
     font-family:var(--font-mono);
-    font-size:.76rem;
+    font-size:.72rem;
+    color:var(--steel-500);
+    z-index:3;
+  }
+  .heroSlider__tag i{width:7px;height:7px;border-radius:50%;background:var(--cyan-500);box-shadow:0 0 10px var(--cyan-500);flex:none;}
+
+  .heroOverlay{position:absolute;inset:0;z-index:4;pointer-events:none;}
+  .heroOverlay__grid{position:relative;height:100%;padding-block:clamp(76px,9vw,100px) clamp(20px,4vw,32px);}
+
+  .heroHeadline{
+    position:absolute;top:clamp(76px,9vw,100px);left:clamp(16px,4vw,40px);
+    max-width:min(560px,58%);
+    pointer-events:auto;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem,6vw,4.6rem);
+    font-weight:800;
+    line-height:1.03;
+    letter-spacing:-.03em;
+    text-wrap:balance;
+    margin-top:16px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(120deg,var(--cyan-500),var(--cyan-700));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .heroCaption{
+    position:absolute;top:clamp(76px,9vw,100px);right:clamp(16px,4vw,40px);
+    max-width:250px;
+    pointer-events:auto;
+    background:rgba(10,20,32,.6);
+    backdrop-filter:blur(16px) saturate(140%);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--ink-800);
+    border-radius:var(--radius-m);
+    padding:18px 20px;
+  }
+  .heroCaption__lead{
+    font-family:var(--font-display);
+    font-weight:700;
+    color:var(--chrome-200);
+    font-size:.98rem;
+    margin-top:10px;
+  }
+  .heroCaption__sub{
+    font-size:.8rem;
+    color:var(--steel-500);
+    margin-top:8px;
+  }
+  .heroCaption .baHint{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid var(--ink-800);
+    font-family:var(--font-mono);
+    font-size:.68rem;
     color:var(--steel-500);
   }
 
-  /* ---------- booking ---------- */
-  .bookingSection{
-    position:relative;
-  }
-  .bookingCard{
-    background:linear-gradient(160deg,var(--ink-900),#0c1826);
+  .heroCtaPanel{
+    position:absolute;bottom:clamp(20px,4vw,40px);left:clamp(16px,4vw,40px);
+    max-width:min(480px,92%);
+    pointer-events:auto;
+    background:rgba(10,20,32,.62);
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
     border:1px solid var(--ink-800);
-    border-radius:var(--radius-l);
-    padding:clamp(24px,4vw,48px);
+    border-radius:var(--radius-m);
+    padding:clamp(20px,3vw,30px);
+  }
+  .heroCtaPanel .lead{
+    max-width:46ch;
+    color:var(--steel-500);
+    font-size:1.02rem;
+    margin-top:0;
+  }
+  .hero__ctas{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:24px;
+  }
+  .heroStat{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:28px;
+    padding-top:22px;
+    border-top:1px solid var(--ink-800);
+  }
+  .heroStat__num{
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:clamp(2.4rem,5vw,3.4rem);
+    line-height:1;
+    letter-spacing:-.02em;
+    background:linear-gradient(160deg,var(--chrome-200),var(--cyan-500) 130%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .heroStat__meta{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    font-family:var(--font-mono);
+    font-size:.82rem;
+    color:var(--steel-500);
+  }
+  .heroStat__stars{color:var(--cyan-500);letter-spacing:3px;font-size:.94rem;}
+
+  @media (max-width:759px){
+    .heroOverlay{position:static;}
+    .heroOverlay__grid{position:static;height:auto;display:flex;flex-direction:column;gap:16px;padding-block:24px;}
+    .heroHeadline,.heroCaption,.heroCtaPanel{position:static;max-width:none;}
+  }
+
+  /* ---------- wave-cut glass cards ---------- */
+  .waveCard{
+    position:relative;
+    background:linear-gradient(160deg,rgba(22,41,61,.55),rgba(15,30,46,.4));
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    box-shadow:0 26px 60px -32px rgba(0,0,0,.6);
+    clip-path:polygon(0% 12%,8% 4%,16% 10%,24% 2%,32% 8%,40% 1%,48% 7%,56% 0%,64% 6%,72% 1%,80% 7%,88% 2%,96% 8%,100% 3%,100% 100%,0% 100%);
+    padding:46px 26px 26px;
+    transition:transform .45s var(--ease-soft),background .45s var(--ease-soft),box-shadow .45s var(--ease-soft);
+  }
+  .waveCard::before{
+    content:"";
+    position:absolute;
+    top:16px;left:20px;
+    width:56px;height:56px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.22),transparent 70%);
+    pointer-events:none;
+    filter:blur(1px);
+  }
+  .waveCard:hover{transform:translateY(-4px);box-shadow:0 34px 70px -30px rgba(62,217,232,.25);}
+  .waveCard--soft{
+    clip-path:polygon(0% 7%,20% 1%,40% 6%,60% 0%,80% 5%,100% 1%,100% 100%,0% 100%);
+    padding-top:42px;
+  }
+
+  /* ---------- services filmstrip ---------- */
+  .filmstrip__controls{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .filmstrip__arrow{
+    width:44px;height:44px;
+    border-radius:50%;
+    border:1px solid var(--ink-800);
+    background:rgba(231,241,245,.03);
+    color:var(--chrome-200);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    transition:border-color .3s var(--ease-soft),background .3s var(--ease-soft);
+  }
+  .filmstrip__arrow:hover{border-color:var(--cyan-700);background:rgba(62,217,232,.08);}
+  .filmstrip__arrow svg{width:18px;height:18px;}
+  .filmstrip__track{
+    display:flex;
+    gap:clamp(14px,2vw,22px);
+    overflow-x:auto;
+    scroll-snap-type:x proximity;
+    padding:6px clamp(16px,4vw,40px) 22px;
+    cursor:grab;
+    scrollbar-width:thin;
+    scrollbar-color:var(--cyan-700) transparent;
+  }
+  .filmstrip__track:active{cursor:grabbing;}
+  .filmstrip__track::-webkit-scrollbar{height:6px;}
+  .filmstrip__track::-webkit-scrollbar-thumb{background:var(--cyan-700);border-radius:999px;}
+  .filmstrip__track::-webkit-scrollbar-track{background:transparent;}
+  .filmItem{
+    flex:0 0 clamp(240px,68vw,320px);
+    scroll-snap-align:start;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .serviceCard__icon{width:44px;height:44px;color:var(--cyan-500);}
+  .filmItem h3{font-size:1.1rem;font-weight:700;}
+  .filmItem p{color:var(--steel-500);font-size:.92rem;}
+  .serviceCard__price{
+    margin-top:auto;
+    padding-top:14px;
+    font-family:var(--font-mono);
+    font-size:.82rem;
+    color:var(--cyan-500);
+    border-top:1px solid var(--ink-800);
+  }
+
+  /* ---------- why ---------- */
+  .why__grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:clamp(12px,1.4vw,18px);
+  }
+  .whyCard__num{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--steel-500);
+  }
+  .whyCard b{
+    display:block;
+    font-family:var(--font-display);
+    font-size:1.4rem;
+    font-weight:800;
+    color:var(--cyan-500);
+    margin:10px 0 8px;
+  }
+  .whyCard p{color:var(--steel-500);font-size:.9rem;}
+
+  /* ---------- booking ---------- */
+  .bookingSection{position:relative;}
+  .bookingCard{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:clamp(28px,4vw,48px);
@@ -613,7 +632,7 @@
     align-items:center;
     justify-content:center;
     line-height:1.3;
-    transition:border-color .2s,background .2s,color .2s;
+    transition:border-color .3s var(--ease-soft),background .3s var(--ease-soft),color .3s var(--ease-soft),transform .3s var(--ease-soft);
   }
   .dateChip span{font-size:.66rem;color:var(--steel-500);text-transform:uppercase;}
   .dateChip{min-width:56px;}
@@ -637,8 +656,16 @@
   }
   .bookingNote a{color:var(--cyan-500);font-family:var(--font-mono);text-decoration:none;}
 
+  /* ---------- section backgrounds + wave dividers ---------- */
+  #services{background:var(--ink-900);padding-top:0;}
+  #why{background:var(--ink-950);padding-top:0;}
+  #booking{background:var(--ink-900);padding-top:0;}
+  .waveDivider{line-height:0;overflow:hidden;width:100%;}
+  .waveDivider svg{display:block;width:100%;height:clamp(56px,9vw,110px);}
+
   /* ---------- footer ---------- */
   footer{
+    background:var(--ink-950);
     border-top:1px solid var(--ink-800);
     padding-block:48px;
   }
@@ -676,30 +703,27 @@
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    .heroVisual__sweep{animation:none;display:none;}
     .btn__ripple{animation:none;display:none;}
     .reveal{opacity:1;transform:none;}
+    .waveCard,.tabbar__item,.filmstrip__arrow,.callChip{transition:none;}
   }
 
   /* ---------- responsive ---------- */
   @media (max-width:980px){
-    .hero__grid{grid-template-columns:1fr;}
-    .heroVisual{aspect-ratio:16/9;max-width:520px;}
-    .services__grid{grid-template-columns:repeat(2,1fr);}
-    .serviceCard--wide{grid-column:span 2;}
     .why__grid{grid-template-columns:repeat(2,1fr);}
     .bookingCard{grid-template-columns:1fr;}
   }
-  @media (max-width:760px){
-    .nav__links{display:none;}
-    .nav__phone{display:none;}
-    .hamburger{display:block;}
-  }
   @media (max-width:600px){
-    .services__grid{grid-template-columns:1fr;}
-    .serviceCard--wide{grid-column:span 1;}
     .why__grid{grid-template-columns:1fr;}
     .footer__row{flex-direction:column;align-items:flex-start;}
+  }
+  @media (max-width:480px){
+    .callChip span{display:none;}
+    .callChip{width:48px;min-width:48px;padding:0;justify-content:center;}
+  }
+  @media (max-width:400px){
+    .tabbar__item{min-width:50px;padding:6px 7px;font-size:.58rem;}
+    .tabbar__item svg{width:17px;height:17px;}
   }
 </style>
 </head>
@@ -730,68 +754,101 @@
   </defs>
 </svg>
 
-<nav class="nav">
-  <div class="wrap nav__row">
-    <a href="#top" class="logo">
-      <svg class="logo__mark" viewBox="0 0 48 48" fill="none">
-        <path d="M4 30c5 0 5-8 10-8s5 8 10 8 5-8 10-8 5 8 10 8 5-8 10-8" stroke="#3ED9E8" stroke-width="3" stroke-linecap="round"/>
-        <path d="M4 20c5 0 5-8 10-8s5 8 10 8 5-8 10-8 5 8 10 8 5-8 10-8" stroke="#1AA6B8" stroke-width="3" stroke-linecap="round" opacity=".55"/>
-      </svg>
-      <span>WAVE<span class="logo__sub">Detailing studio</span></span>
+<a href="#top" class="brandChip" aria-label="WAVE Detailing — наверх">
+  <svg viewBox="0 0 48 48" fill="none">
+    <path d="M4 30c5 0 5-8 10-8s5 8 10 8 5-8 10-8 5 8 10 8 5-8 10-8" stroke="#3ED9E8" stroke-width="3" stroke-linecap="round"/>
+    <path d="M4 20c5 0 5-8 10-8s5 8 10 8 5-8 10-8 5 8 10 8 5-8 10-8" stroke="#1AA6B8" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+  </svg>
+</a>
+
+<a href="tel:+77000000000" class="callChip" aria-label="Позвонить +7 (700) 000-00-00">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4.9c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1L6.6 10.8Z"/></svg>
+  <span>+7 (700) 000-00-00</span>
+</a>
+
+<nav class="tabbar" aria-label="Основная навигация">
+  <div class="tabbar__inner">
+    <a href="#services" class="tabbar__item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C12 3 5 12 5 16a7 7 0 0 0 14 0C19 12 12 3 12 3Z"/></svg>
+      <span>Услуги</span>
     </a>
-    <div class="nav__links">
-      <a href="#services">Услуги</a>
-      <a href="#before-after">До / После</a>
-      <a href="#why">Почему мы</a>
-      <a href="#booking">Запись</a>
-    </div>
-    <div class="nav__cta">
-      <a class="nav__phone" href="tel:+77000000000">
-        <b>+7 (700) 000-00-00</b>
-        <span>Ежедневно 09:00–21:00</span>
-      </a>
-      <a href="#booking" class="btn btn--primary btn--sm">Записаться</a>
-      <button class="hamburger" id="hamburger" aria-label="Меню" aria-expanded="false" aria-controls="mobilePanel">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a href="#baSlider" class="tabbar__item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg>
+      <span>До/После</span>
+    </a>
+    <a href="#why" class="tabbar__item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span>Почему мы</span>
+    </a>
+    <a href="#booking" class="tabbar__item tabbar__item--cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>
+      <span>Запись</span>
+    </a>
   </div>
 </nav>
 
-<div class="mobilePanel" id="mobilePanel">
-  <a href="#services">Услуги</a>
-  <a href="#before-after">До / После</a>
-  <a href="#why">Почему мы</a>
-  <a href="#booking">Запись</a>
-  <a href="tel:+77000000000" class="btn btn--primary">+7 (700) 000-00-00</a>
-</div>
-
 <main id="top">
   <section class="hero">
-    <div class="wrap hero__grid">
-      <div>
-        <span class="eyebrow">Студия детейлинга WAVE</span>
-        <h1>Чистота, которую видно.<br><em>Блеск, который чувствуется.</em></h1>
-        <p class="lead">Ручная мойка, керамика и химчистка салона — с вниманием к каждой детали кузова. Работаем строго по записи: без очередей, без спешки, с гарантией результата.</p>
-        <div class="hero__ctas">
-          <a href="#booking" class="btn btn--primary">Запись на услугу</a>
-          <a href="#services" class="btn btn--ghost">Смотреть услуги</a>
-        </div>
-        <div class="rating">
-          <span class="rating__stars">★★★★★</span>
-          <span><b>4.9</b> · 120+ довольных клиентов</span>
-        </div>
+    <div class="heroSlider" id="baSlider" role="slider" tabindex="0" aria-label="Сравнение состояния кузова до и после детейлинга" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55">
+      <div class="baPanel baPanel--before">
+        <svg viewBox="0 0 380 170" aria-hidden="true"><use href="#carSil"/><use href="#carSil" filter="url(#grimeTex)" class="baGrime"/></svg>
+        <span class="baLabel">До</span>
       </div>
-      <div class="heroVisual reveal">
-        <div class="heroVisual__ring"></div>
-        <div class="heroVisual__sweep"></div>
-        <svg viewBox="0 0 380 170" aria-hidden="true">
-          <use href="#carSil" fill="url(#cleanGrad)"/>
-        </svg>
-        <span class="heroVisual__tag"><i></i> Керамическое покрытие активно</span>
+      <div class="baPanel baPanel--after" id="baAfter" style="clip-path:inset(0 45% 0 0)">
+        <svg viewBox="0 0 380 170" aria-hidden="true"><use href="#carSil"/></svg>
+        <span class="baLabel">После</span>
+      </div>
+      <div class="heroSlider__scrimTop" aria-hidden="true"></div>
+      <div class="heroSlider__scrimBottom" aria-hidden="true"></div>
+      <div class="baHandle" id="baHandle" style="left:55%">
+        <span class="baHandle__grip"><span></span><span></span></span>
+      </div>
+      <span class="heroSlider__tag"><i></i> Керамическое покрытие активно</span>
+    </div>
+
+    <div class="heroOverlay">
+      <div class="wrap heroOverlay__grid">
+        <div class="heroHeadline reveal">
+          <span class="eyebrow">Студия детейлинга WAVE</span>
+          <h1>Чистота, которую видно.<br><em>Блеск, который чувствуется.</em></h1>
+        </div>
+
+        <div class="heroCaption reveal">
+          <span class="eyebrow">До / После</span>
+          <p class="heroCaption__lead">Перетащите разделитель</p>
+          <p class="heroCaption__sub">Наглядно — результат детейлинга за одно посещение. Потяните за ручку или используйте стрелки клавиатуры.</p>
+          <div class="baHint">
+            <span>До — Грязный кузов, матовое ЛКП</span>
+            <span>После — Керамика + полировка</span>
+          </div>
+        </div>
+
+        <div class="heroCtaPanel reveal">
+          <p class="lead">Ручная мойка, керамика и химчистка салона — с вниманием к каждой детали кузова. Работаем строго по записи: без очередей, без спешки, с гарантией результата.</p>
+          <div class="hero__ctas">
+            <a href="#booking" class="btn btn--primary">
+              <span>Запись на услугу</span>
+              <span class="btn__iconChip" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+            <a href="#services" class="btn btn--ghost">Смотреть услуги</a>
+          </div>
+          <div class="heroStat">
+            <span class="heroStat__num">4.9</span>
+            <div class="heroStat__meta">
+              <span class="heroStat__stars" aria-hidden="true">★★★★★</span>
+              <span>120+ довольных клиентов</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <div class="waveDivider" style="background:var(--ink-950)" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C240,90 480,0 720,30 C960,60 1200,10 1440,45 L1440,100 L0,100 Z" fill="var(--ink-900)"/></svg>
+  </div>
 
   <section id="services">
     <div class="wrap">
@@ -800,69 +857,52 @@
         <h2 class="sectionTitle">Полный цикл ухода за автомобилем</h2>
         <p class="sectionSub">От экспресс-мойки до керамики — каждая услуга выполняется вручную, на профессиональных составах, в крытом боксе.</p>
       </div>
-      <div class="services__grid reveal">
-        <article class="serviceCard serviceCard--wide">
-          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6C24 6 12 22 12 30a12 12 0 0 0 24 0C36 22 24 6 24 6Z"/></svg>
-          <h3>Мойка кузова</h3>
-          <p>Бесконтактная и ручная мойка с pH-нейтральной химией — без царапин и разводов, с сушкой мягкими полотенцами.</p>
-          <span class="serviceCard__price">от 1 200 ₽ · 40 мин</span>
-        </article>
-        <article class="serviceCard">
-          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="10" width="28" height="20" rx="3"/><path d="M14 30v6M24 30v8M34 30v6"/></svg>
-          <h3>Химчистка салона</h3>
-          <p>Глубокая чистка сидений, потолка и ковролина с удалением запахов и пятен.</p>
-          <span class="serviceCard__price">от 6 500 ₽ · 3 ч</span>
-        </article>
-        <article class="serviceCard">
-          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 5 41 14v13c0 10-8 15-17 16C15 42 7 37 7 27V14Z"/><path d="M17 24l5 5 10-11"/></svg>
-          <h3>Керамическое покрытие</h3>
-          <p>Защитный слой на 12+ месяцев: глубокий блеск, гидрофобный эффект, устойчивость к реагентам.</p>
-          <span class="serviceCard__price">от 18 000 ₽ · 1 день</span>
-        </article>
-        <article class="serviceCard">
-          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 8a16 16 0 1 1-11.3 4.7"/><path d="M24 8v10l8-4"/></svg>
-          <h3>Полировка кузова</h3>
-          <p>Удаление мелких царапин и матовости лака, восстановление глубины цвета кузова.</p>
-          <span class="serviceCard__price">от 9 000 ₽ · 4 ч</span>
-        </article>
-        <article class="serviceCard">
-          <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 34 40 14"/><circle cx="30" cy="20" r="3" fill="currentColor" stroke="none"/><circle cx="18" cy="30" r="2" fill="currentColor" stroke="none" opacity=".6"/></svg>
-          <h3>Антидождь на стёкла</h3>
-          <p>Гидрофобное покрытие стёкол — капли скатываются на скорости, обзор чище в дождь.</p>
-          <span class="serviceCard__price">от 1 800 ₽ · 30 мин</span>
-        </article>
+      <div class="filmstrip__controls">
+        <button type="button" class="filmstrip__arrow filmstrip__arrow--prev" aria-label="Предыдущая услуга">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button type="button" class="filmstrip__arrow filmstrip__arrow--next" aria-label="Следующая услуга">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
       </div>
+    </div>
+    <div class="filmstrip__track" id="filmTrack">
+      <article class="waveCard serviceCard filmItem">
+        <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6C24 6 12 22 12 30a12 12 0 0 0 24 0C36 22 24 6 24 6Z"/></svg>
+        <h3>Мойка кузова</h3>
+        <p>Бесконтактная и ручная мойка с pH-нейтральной химией — без царапин и разводов, с сушкой мягкими полотенцами.</p>
+        <span class="serviceCard__price">от 1 200 ₽ · 40 мин</span>
+      </article>
+      <article class="waveCard serviceCard filmItem">
+        <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="10" width="28" height="20" rx="3"/><path d="M14 30v6M24 30v8M34 30v6"/></svg>
+        <h3>Химчистка салона</h3>
+        <p>Глубокая чистка сидений, потолка и ковролина с удалением запахов и пятен.</p>
+        <span class="serviceCard__price">от 6 500 ₽ · 3 ч</span>
+      </article>
+      <article class="waveCard serviceCard filmItem">
+        <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 5 41 14v13c0 10-8 15-17 16C15 42 7 37 7 27V14Z"/><path d="M17 24l5 5 10-11"/></svg>
+        <h3>Керамическое покрытие</h3>
+        <p>Защитный слой на 12+ месяцев: глубокий блеск, гидрофобный эффект, устойчивость к реагентам.</p>
+        <span class="serviceCard__price">от 18 000 ₽ · 1 день</span>
+      </article>
+      <article class="waveCard serviceCard filmItem">
+        <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 8a16 16 0 1 1-11.3 4.7"/><path d="M24 8v10l8-4"/></svg>
+        <h3>Полировка кузова</h3>
+        <p>Удаление мелких царапин и матовости лака, восстановление глубины цвета кузова.</p>
+        <span class="serviceCard__price">от 9 000 ₽ · 4 ч</span>
+      </article>
+      <article class="waveCard serviceCard filmItem">
+        <svg class="serviceCard__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 34 40 14"/><circle cx="30" cy="20" r="3" fill="currentColor" stroke="none"/><circle cx="18" cy="30" r="2" fill="currentColor" stroke="none" opacity=".6"/></svg>
+        <h3>Антидождь на стёкла</h3>
+        <p>Гидрофобное покрытие стёкол — капли скатываются на скорости, обзор чище в дождь.</p>
+        <span class="serviceCard__price">от 1 800 ₽ · 30 мин</span>
+      </article>
     </div>
   </section>
 
-  <section id="before-after" class="baSection">
-    <div class="wrap">
-      <div class="sectionHead reveal">
-        <span class="eyebrow">До / После</span>
-        <h2 class="sectionTitle">Перетащите разделитель</h2>
-        <p class="sectionSub">Наглядно — результат детейлинга за одно посещение. Потяните за ручку или используйте стрелки клавиатуры.</p>
-      </div>
-      <div class="baWrap reveal">
-        <div class="baSlider" id="baSlider" role="slider" tabindex="0" aria-label="Сравнение состояния кузова до и после детейлинга" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55">
-          <div class="baPanel baPanel--before">
-            <svg viewBox="0 0 380 170" aria-hidden="true"><use href="#carSil"/><use href="#carSil" filter="url(#grimeTex)" class="baGrime"/></svg>
-            <span class="baLabel">До</span>
-          </div>
-          <div class="baPanel baPanel--after" id="baAfter" style="clip-path:inset(0 45% 0 0)">
-            <svg viewBox="0 0 380 170" aria-hidden="true"><use href="#carSil"/></svg>
-            <span class="baLabel">После</span>
-          </div>
-          <div class="baHandle" id="baHandle" style="left:55%">
-            <span class="baHandle__grip"><span></span><span></span></span>
-          </div>
-        </div>
-        <div class="baHint">
-          <span>Грязный кузов, матовое ЛКП</span>
-          <span>Керамика + полировка</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="waveDivider" style="background:var(--ink-900)" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,55 C240,10 480,95 720,60 C960,25 1200,80 1440,50 L1440,100 L0,100 Z" fill="var(--ink-950)"/></svg>
+  </div>
 
   <section id="why">
     <div class="wrap">
@@ -871,22 +911,22 @@
         <h2 class="sectionTitle">Детейлинг, а не просто мойка</h2>
       </div>
       <div class="why__grid reveal">
-        <div class="whyCard">
+        <div class="waveCard whyCard">
           <span class="whyCard__num">01</span>
           <b>12 мес</b>
           <p>Гарантия на керамическое покрытие при соблюдении рекомендаций по уходу.</p>
         </div>
-        <div class="whyCard">
+        <div class="waveCard whyCard">
           <span class="whyCard__num">02</span>
           <b>Крытый бокс</b>
           <p>Работаем в закрытом помещении с климат-контролем — независимо от погоды.</p>
         </div>
-        <div class="whyCard">
+        <div class="waveCard whyCard">
           <span class="whyCard__num">03</span>
           <b>40 минут</b>
           <p>Минимальное время ожидания для экспресс-мойки без потери качества.</p>
         </div>
-        <div class="whyCard">
+        <div class="waveCard whyCard">
           <span class="whyCard__num">04</span>
           <b>Своя химия</b>
           <p>Сертифицированные профессиональные составы, бережные к лакокрасочному покрытию.</p>
@@ -895,9 +935,13 @@
     </div>
   </section>
 
+  <div class="waveDivider" style="background:var(--ink-950)" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,30 C240,70 480,15 720,50 C960,85 1200,20 1440,55 L1440,100 L0,100 Z" fill="var(--ink-900)"/></svg>
+  </div>
+
   <section id="booking" class="bookingSection">
     <div class="wrap">
-      <div class="bookingCard reveal">
+      <div class="waveCard waveCard--soft bookingCard reveal">
         <div class="bookingIntro">
           <span class="eyebrow">Запись</span>
           <h3>Забронируйте время онлайн</h3>
@@ -935,7 +979,12 @@
               <button type="button" class="timeChip">20:00</button>
             </div>
           </div>
-          <button type="button" class="btn btn--primary bookingConfirm" id="bookingConfirm">Подтвердить запись</button>
+          <button type="button" class="btn btn--primary bookingConfirm" id="bookingConfirm">
+            <span>Подтвердить запись</span>
+            <span class="btn__iconChip" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+            </span>
+          </button>
           <p class="bookingNote" id="bookingNote" hidden></p>
         </div>
       </div>
@@ -985,24 +1034,37 @@
     span.addEventListener('animationend', function(){ span.remove(); });
   });
 
-  /* ---- mobile nav ---- */
-  var hamburger = document.getElementById('hamburger');
-  var mobilePanel = document.getElementById('mobilePanel');
-  hamburger.addEventListener('click', function(){
-    var open = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', String(!open));
-    mobilePanel.classList.toggle('is-open', !open);
-    document.body.style.overflow = !open ? 'hidden' : '';
-  });
-  mobilePanel.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      hamburger.setAttribute('aria-expanded','false');
-      mobilePanel.classList.remove('is-open');
-      document.body.style.overflow = '';
+  /* ---- magnetic primary buttons ---- */
+  var pointerFine = window.matchMedia('(pointer: fine)').matches;
+  if(pointerFine && !reduceMotion){
+    document.querySelectorAll('.btn--primary').forEach(function(btn){
+      var chip = btn.querySelector('.btn__iconChip');
+      btn.addEventListener('pointermove', function(e){
+        var rect = btn.getBoundingClientRect();
+        var relX = e.clientX - rect.left - rect.width / 2;
+        var relY = e.clientY - rect.top - rect.height / 2;
+        var maxOffset = 7;
+        var tx = Math.max(-maxOffset, Math.min(maxOffset, relX * 0.3));
+        var ty = Math.max(-maxOffset, Math.min(maxOffset, relY * 0.35));
+        btn.style.transition = 'transform .18s cubic-bezier(.22,.8,.32,1)';
+        btn.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(1.02)';
+        if(chip){
+          chip.style.transition = 'transform .18s cubic-bezier(.22,.8,.32,1)';
+          chip.style.transform = 'translate(' + (tx * 0.4 + 2).toFixed(1) + 'px,' + (ty * 0.4 - 2).toFixed(1) + 'px)';
+        }
+      });
+      btn.addEventListener('pointerleave', function(){
+        btn.style.transition = 'transform .5s var(--ease-spring)';
+        btn.style.transform = '';
+        if(chip){
+          chip.style.transition = 'transform .5s var(--ease-spring)';
+          chip.style.transform = '';
+        }
+      });
     });
-  });
+  }
 
-  /* ---- before/after slider ---- */
+  /* ---- before/after slider (now the hero visual) ---- */
   var slider = document.getElementById('baSlider');
   var after = document.getElementById('baAfter');
   var handle = document.getElementById('baHandle');
@@ -1053,6 +1115,54 @@
     setTimeout(function(){ setValue(55, true); }, 3300);
   }
 
+  /* ---- services filmstrip: drag-to-scroll + arrow controls ---- */
+  var track = document.getElementById('filmTrack');
+  if(track){
+    var isDown = false, startX = 0, startScroll = 0;
+    track.addEventListener('pointerdown', function(e){
+      isDown = true;
+      track.setPointerCapture(e.pointerId);
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+    });
+    track.addEventListener('pointermove', function(e){
+      if(!isDown) return;
+      track.scrollLeft = startScroll - (e.clientX - startX);
+    });
+    track.addEventListener('pointerup', function(){ isDown = false; });
+    track.addEventListener('pointercancel', function(){ isDown = false; });
+
+    function scrollFilm(dir){
+      var card = track.querySelector('.filmItem');
+      var amount = card ? card.getBoundingClientRect().width + 20 : 300;
+      track.scrollBy({ left: dir * amount, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+    var prevBtn = document.querySelector('.filmstrip__arrow--prev');
+    var nextBtn = document.querySelector('.filmstrip__arrow--next');
+    if(prevBtn) prevBtn.addEventListener('click', function(){ scrollFilm(-1); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ scrollFilm(1); });
+  }
+
+  /* ---- bottom tab-bar active-section highlight ---- */
+  var tabItems = Array.prototype.slice.call(document.querySelectorAll('.tabbar__item'));
+  var spyTargets = tabItems.map(function(a){
+    var id = a.getAttribute('href').slice(1);
+    return { a: a, el: document.getElementById(id) };
+  }).filter(function(t){ return !!t.el; });
+  if(spyTargets.length && 'IntersectionObserver' in window){
+    var spyIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        var match = spyTargets.filter(function(t){ return t.el === entry.target; })[0];
+        if(match){
+          tabItems.forEach(function(a){ a.classList.remove('is-active'); });
+          match.a.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    spyTargets.forEach(function(t){ spyIO.observe(t.el); });
+  }
+
   /* ---- booking widget (visual only) ---- */
   var dateChips = document.getElementById('dateChips');
   var days = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
@@ -1095,7 +1205,8 @@
 
   /* ---- scroll reveal ---- */
   var revealEls = document.querySelectorAll('.reveal');
-  if(window.gsap && window.ScrollTrigger && !reduceMotion){
+  var gsapReady = !!(window.gsap && window.ScrollTrigger) && !reduceMotion;
+  if(gsapReady){
     gsap.registerPlugin(ScrollTrigger);
     revealEls.forEach(function(el){
       gsap.fromTo(el, {opacity:0, y:28}, {
@@ -1103,6 +1214,26 @@
         scrollTrigger:{ trigger: el, start: 'top 85%' }
       });
     });
+
+    /* services filmstrip cascade: scale + y + tiny alternating rotation settling to 0 */
+    var filmItems = document.querySelectorAll('#services .filmItem');
+    if(filmItems.length){
+      gsap.set(filmItems, {
+        opacity:0, y:34, scale:.94,
+        rotate:function(i){ return i % 2 === 0 ? -1.5 : 1.5; }
+      });
+      ScrollTrigger.create({
+        trigger:'#filmTrack',
+        start:'top 82%',
+        once:true,
+        onEnter:function(){
+          gsap.to(filmItems, {
+            opacity:1, y:0, scale:1, rotate:0,
+            duration:.85, ease:'back.out(1.6)', stagger:.09
+          });
+        }
+      });
+    }
   } else if('IntersectionObserver' in window && !reduceMotion){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
